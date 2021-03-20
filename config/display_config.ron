@@ -1,0 +1,4 @@
+(
+    title: "flock-of-boids",
+    dimensions: Some((600,600)),
+)

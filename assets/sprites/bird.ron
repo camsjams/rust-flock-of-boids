@@ -1,0 +1,7 @@
+Grid((
+    texture_width: 512,
+    texture_height: 512,
+    columns: 1,
+    rows: 1,
+    cell_size: (512, 512),
+))

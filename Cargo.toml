@@ -1,0 +1,36 @@
+[package]
+name = "rust-flock-of-boids"
+description  = "A showdown between bevy, tetra, amethyst, and piston"
+version = "0.1.0"
+authors = ["Cameron Manavian <cameron.manavian@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+bevy = "0.4"
+piston_window = "0.117.0"
+rand = "0.8.2"
+# see below
+# amethyst = { path ="../amethyst", features = ["optional"] }
+# tetra = "0.6"
+
+[[bin]]
+name = "with_piston"
+path = "src/with_piston.rs"
+
+# [[bin]]
+# name = "with_tetra"
+# path = "src/with_tetra.rs"
+# see https://github.com/rust-lang/cargo/pull/7768
+
+# [[bin]]
+# name = "with_amethyst"
+# path = "src/with_amethyst.rs"
+# see https://community.amethyst.rs/t/bevy-engine-addressing-the-elephant-in-the-room/1645
+# see https://github.com/amethyst/amethyst/issues/2517
+# [features]
+# default = ["vulkan"]
+# vulkan = ["amethyst/vulkan"]
+
+[[bin]]
+name = "with_bevy"
+path = "src/with_bevy.rs"
