@@ -5,7 +5,7 @@ An exploratory look at Rust game engines using the Boids life program
 Using Piston, Amethyst, Tetra, and Bevy, I explore the Rust game dev ecosystem and created thin UI wrappers over a reusable Flocking Boids program to test out some of the top Game Development options available in Rust.
 
 ## Version
-See [Cargo.toml] version
+See [Cargo.toml](Cargo.toml) version
 
 ## Platforms / Technologies
 * [Rust](https://www.rust-lang.org/en-US/)
@@ -15,7 +15,7 @@ See [Cargo.toml] version
 * [Amethyst](https://amethyst.rs/)
 * [Tetra](https://tetra.seventeencups.net/)
 
-## Run (note: see [Cargo.toml] to swap between Tetra/Bevy due to conflicts of native libraries)
+## Run (note: see [Cargo.toml](Cargo.toml) to swap between Tetra/Bevy due to conflicts of native libraries)
 >      $ cargo run --bin with_piston
 >      $ cargo run --bin with_bevy
 >      $ cargo run --bin with_tetra
