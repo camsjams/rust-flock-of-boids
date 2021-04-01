@@ -1,6 +1,10 @@
 # rust-flock-of-boids
 An exploratory look at Rust game engines using the Boids life program
 
+# ![Game Demo](img/demo.gif)
+
+# ![Picture of Flock of Seagulls with Ferris the crab](img/thumb.jpg)
+
 ## Description
 Using Piston, Amethyst, Tetra, and Bevy, I explore the Rust game dev ecosystem and created thin UI wrappers over a reusable Flocking Boids program to test out some of the top Game Development options available in Rust.
 
@@ -21,6 +25,8 @@ Note: see [Cargo.toml](Cargo.toml) to swap between Tetra/Bevy due to conflicts o
 >      $ cargo run --bin with_bevy
 >      $ cargo run --bin with_tetra
 >      $ cargo run --bin with_amethyst
+
+Another Note: I chose _not_ to use [Cargo Workspaces](https://doc.rust-lang.org/cargo/reference/workspaces.html) due to the format of the video and to keep the code simple and concise.
 
 ## Build For Release
 >      $ cargo build --bin with_piston --release
