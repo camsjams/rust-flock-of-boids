@@ -1,9 +1,10 @@
 # rust-flock-of-boids
 An exploratory look at Rust game engines using the Boids life program
 
+# ![Picture of Flock of Seagulls with Ferris the crab](img/thumb.jpg)
+
 # ![Game Demo](img/demo.gif)
 
-# ![Picture of Flock of Seagulls with Ferris the crab](img/thumb.jpg)
 
 ## Description
 Using Piston, Amethyst, Tetra, and Bevy, I explore the Rust game dev ecosystem and created thin UI wrappers over a reusable Flocking Boids program to test out some of the top Game Development options available in Rust.
