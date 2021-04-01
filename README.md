@@ -21,7 +21,7 @@ See [Cargo.toml](Cargo.toml) version
 * [Tetra](https://tetra.seventeencups.net/)
 
 ## Run
-Note: see [Cargo.toml](Cargo.toml) to swap between Tetra/Bevy due to conflicts of native libraries)
+Note: see [Cargo.toml](Cargo.toml) to swap between Tetra/Bevy due to conflicts of native libraries
 >      $ cargo run --bin with_piston
 >      $ cargo run --bin with_bevy
 >      $ cargo run --bin with_tetra
