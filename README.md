@@ -1,7 +1,7 @@
 # rust-flock-of-boids
 An exploratory look at Rust game engines using the Boids life program - [see video here](https://www.youtube.com/watch?v=e0n9v565HR4)
 
-[![Picture of Flock of Seagulls with Ferris the crab](img/thumb.jpg)]([https://www.youtube.com/watch?v=e0n9v565HR4)
+[![Picture of Flock of Seagulls with Ferris the crab](img/thumb.jpg)](https://www.youtube.com/watch?v=e0n9v565HR4)
 
 ![Game Demo](img/demo.gif)
 
