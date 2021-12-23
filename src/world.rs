@@ -48,17 +48,17 @@ impl World {
     pub fn step(&mut self, seconds: f32) {
         for i in 0..self.boids.len() {
             let mut boid = self.boids[i];
-            let neighbors = self.clone().get_visible_neighbors(&boid);
+            let neighbors = self.clone().visible_neighbors(&boid);
             boid.step(seconds, neighbors);
             boid.bound(self.width, self.height);
             self.boids[i] = boid;
         }
     }
 
-    pub fn get_visible_neighbors(&self, boid: &Boid) -> Vec<Boid> {
+    pub fn visible_neighbors(&self, boid: &Boid) -> Vec<Boid> {
         let grid = Grid {
-            x: (boid.point.get_x() / SIGHT).floor(),
-            y: (boid.point.get_y() / SIGHT).floor(),
+            x: (boid.point.x() / SIGHT).floor(),
+            y: (boid.point.y() / SIGHT).floor(),
         };
         self.boids
             .iter()
@@ -69,8 +69,8 @@ impl World {
                 }
 
                 let other_grid = Grid {
-                    x: (b.point.get_x() / SIGHT).floor(),
-                    y: (b.point.get_y() / SIGHT).floor(),
+                    x: (b.point.x() / SIGHT).floor(),
+                    y: (b.point.y() / SIGHT).floor(),
                 };
 
                 if (grid.x - other_grid.x).abs() + (grid.y - other_grid.y).abs() > GRID_GAP {
@@ -78,7 +78,7 @@ impl World {
                 }
 
                 let vector: Vector = boid.point.vector_to(&b.point);
-                if vector.get_length() > SIGHT {
+                if vector.length() > SIGHT {
                     return false;
                 }
 
@@ -91,7 +91,7 @@ impl World {
             .collect::<Vec<Boid>>()
     }
 
-    pub fn get_boids(&self) -> Vec<Boid> {
+    pub fn boids(&self) -> Vec<Boid> {
         self.boids.clone()
     }
 }

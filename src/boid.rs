@@ -24,8 +24,8 @@ impl Boid {
         self.point.bound(width, height);
     }
 
-    pub fn get_angle(&self) -> f32 {
-        self.vector.get_angle()
+    pub fn angle(&self) -> f32 {
+        self.vector.angle()
     }
 
     pub fn set_angle(&mut self, angle: f32) {
@@ -38,7 +38,7 @@ impl Boid {
         self.point.move_forward(x, y);
     }
 
-    pub fn get_point(self) -> Point {
+    pub fn point(self) -> Point {
         self.point.clone()
     }
 
@@ -52,7 +52,7 @@ impl Boid {
                     .map(|b| self.point.vector_to(&b.point))
                     .collect::<Vec<Vector>>(),
             );
-            separation.set_length(separation.get_length() + 15f32);
+            separation.set_length(separation.length() + 15f32);
             vectors.push(separation);
 
             let average_location =
@@ -64,7 +64,7 @@ impl Boid {
                     .iter()
                     .map(|b| {
                         let mut v = Vector { dx: 1f32, dy: 0f32 };
-                        v.set_angle(b.vector.get_angle());
+                        v.set_angle(b.vector.angle());
                         v.set_length(25f32);
 
                         v
@@ -74,14 +74,14 @@ impl Boid {
             vectors.push(average_heading);
 
             let final_vector = Vector::mean(vectors);
-            self.turn_to(final_vector.get_angle(), 0.02f32);
+            self.turn_to(final_vector.angle(), 0.02f32);
         }
 
         self.step_forward(seconds);
     }
 
     pub fn turn_to(&mut self, mut heading: f32, percent: f32) {
-        let angle = self.get_angle();
+        let angle = self.angle();
         if heading < angle {
             heading += PI_X_2;
         }

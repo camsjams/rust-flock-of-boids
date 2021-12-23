@@ -48,14 +48,14 @@ impl SimpleState for GameState {
 
     // fn fixed_update(&mut self, _data: StateData<'_, GameData>) -> SimpleTrans {
     //     self.flock.step(1.1);
-    //     let boids = self.flock.get_boids();
+    //     let boids = self.flock.boids();
     //     // for i in 0..boids.len() {
     //     //     let boid = boids[i];
-    //     //     let point = boid.get_point();
+    //     //     let point = boid.point();
     //     //     let transform = context
     //     //         .transform
-    //     //         .trans(point.get_x() as f64, point.get_y() as f64)
-    //     //         .rot_rad(-boid.get_angle() as f64);
+    //     //         .trans(point.x() as f64, point.y() as f64)
+    //     //         .rot_rad(-boid.angle() as f64);
 
     //     //     // polygon(boid.color, BOID_BOD, transform, gfx);
     //     // }

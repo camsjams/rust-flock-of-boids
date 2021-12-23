@@ -50,14 +50,14 @@ fn setup(
         .spawn(Camera2dBundle::default())
         .spawn(CameraUiBundle::default());
 
-    let boids = game_state.flock.get_boids();
+    let boids = game_state.flock.boids();
     for i in 0..boids.len() {
         let boid = boids[i];
-        let point = boid.get_point();
+        let point = boid.point();
 
         let mut transform =
-            Transform::from_translation(Vec3::new(point.get_x(), point.get_y(), 0.0));
-        transform.rotate(Quat::from_rotation_z(-boid.get_angle()));
+            Transform::from_translation(Vec3::new(point.x(), point.y(), 0.0));
+        transform.rotate(Quat::from_rotation_z(-boid.angle()));
         commands
             .spawn((Bird { id: boid.id },))
             .with_bundle(SpriteBundle {
@@ -78,12 +78,12 @@ fn setup(
 
 fn step_system(mut q: Query<(&Bird, &mut Transform)>, mut game_state: ResMut<GameState>) {
     game_state.flock.step(1.1);
-    let boids = game_state.flock.get_boids();
+    let boids = game_state.flock.boids();
 
     for (bird, mut transform) in q.iter_mut() {
         let boid = boids[bird.id as usize]; // <- could totally panic!
-        let point = boid.get_point();
-        transform.translation = Vec3::new(point.get_x(), point.get_y(), 0.0);
-        transform.rotate(Quat::from_rotation_z(-boid.get_angle()));
+        let point = boid.point();
+        transform.translation = Vec3::new(point.x(), point.y(), 0.0);
+        transform.rotate(Quat::from_rotation_z(-boid.angle()));
     }
 }

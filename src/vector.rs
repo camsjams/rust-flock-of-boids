@@ -24,7 +24,7 @@ impl Vector {
         }
     }
 
-    pub fn get_angle(&self) -> f32 {
+    pub fn angle(&self) -> f32 {
         let mut angle = self.dy.atan2(self.dx);
 
         if angle < 0.0 {
@@ -35,7 +35,7 @@ impl Vector {
     }
 
     pub fn set_angle(&mut self, angle: f32) {
-        let length = self.get_length();
+        let length = self.length();
         let rise = angle.sin() * length;
         let run = angle.cos() * length;
 
@@ -43,7 +43,7 @@ impl Vector {
         self.dx = run;
     }
 
-    pub fn get_length(&self) -> f32 {
+    pub fn length(&self) -> f32 {
         let dx = self.dx;
         let dy = self.dy;
 
@@ -51,14 +51,14 @@ impl Vector {
     }
 
     pub fn set_length(&mut self, value: f32) {
-        let stretch = value / self.get_length();
+        let stretch = value / self.length();
 
         self.dx *= stretch;
         self.dy *= stretch;
     }
 
     pub fn radial_distance(&self, other: Vector) -> f32 {
-        let diff = (other.get_angle() - self.get_angle()).abs();
+        let diff = (other.angle() - self.angle()).abs();
         let diff2 = PI_X_2 - diff;
 
         return diff.min(diff2);

@@ -45,18 +45,18 @@ impl State for GameState {
     fn draw(&mut self, ctx: &mut Context) -> tetra::Result {
         graphics::clear(ctx, Color::WHITE);
         self.flock.step(1.1);
-        let boids = self.flock.get_boids();
+        let boids = self.flock.boids();
         for i in 0..boids.len() {
             let boid = boids[i];
-            let point = boid.get_point();
+            let point = boid.point();
 
-            //     .rot_rad(-boid.get_angle() as f64);
+            //     .rot_rad(-boid.angle() as f64);
 
             self.bird.draw(
                 ctx,
                 DrawParams::new()
-                    .position(Vec2::new(point.get_x(), point.get_y()))
-                    .rotation(-boid.get_angle()),
+                    .position(Vec2::new(point.x(), point.y()))
+                    .rotation(-boid.angle()),
             );
         }
 
