@@ -2,7 +2,6 @@ extern crate rand;
 
 mod boid;
 mod constants;
-mod point;
 mod vector;
 mod world;
 
@@ -54,8 +53,7 @@ fn setup(
     for boid in boids {
         let point = boid.get_point();
 
-        let mut transform =
-            Transform::from_translation(Vec3::new(point.get_x(), point.get_y(), 0.0));
+        let mut transform = Transform::from_translation(Vec3::new(point.x, point.y, 0.0));
         transform.rotate(Quat::from_rotation_z(-boid.get_angle()));
         commands
             .spawn((Bird { id: boid.id },))
@@ -81,7 +79,7 @@ fn step_system(mut q: Query<(&Bird, &mut Transform)>, mut game_state: ResMut<Gam
     for (bird, mut transform) in q.iter_mut() {
         let boid = boids[bird.id as usize]; // <- could totally panic!
         let point = boid.get_point();
-        transform.translation = Vec3::new(point.get_x(), point.get_y(), 0.0);
+        transform.translation = Vec3::new(point.x, point.y, 0.0);
         transform.rotate(Quat::from_rotation_z(-boid.get_angle()));
     }
 }

@@ -2,7 +2,6 @@ extern crate rand;
 
 mod boid;
 mod constants;
-mod point;
 mod vector;
 mod world;
 
@@ -37,7 +36,7 @@ fn main() {
                 let point = boid.get_point();
                 let transform = context
                     .transform
-                    .trans(f64::from(point.get_x()), f64::from(point.get_y()))
+                    .trans(f64::from(point.y), f64::from(point.y))
                     .rot_rad(f64::from(-boid.get_angle()));
 
                 polygon(boid.color, BOID_BOD, transform, gfx);
