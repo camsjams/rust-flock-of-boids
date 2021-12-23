@@ -6,7 +6,7 @@ authors = ["Cameron Manavian <cameron.manavian@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-bevy = "0.4"
+bevy = "0.5.0"
 piston_window = "0.117.0"
 rand = "0.8.2"
 # see below
