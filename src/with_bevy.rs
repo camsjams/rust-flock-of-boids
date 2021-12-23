@@ -30,7 +30,7 @@ fn main() {
 
     App::build()
         .add_plugins(DefaultPlugins)
-        .add_resource(GameState {
+        .insert_resource(GameState {
             flock: World::new(NUM_BOIDS, SIZE as f32),
         })
         .add_startup_system(setup.system())
@@ -39,7 +39,7 @@ fn main() {
 }
 
 fn setup(
-    commands: &mut Commands,
+    mut commands: Commands,
     asset_server: Res<AssetServer>,
     mut materials: ResMut<Assets<ColorMaterial>>,
     game_state: ResMut<GameState>,
@@ -47,8 +47,8 @@ fn setup(
     let texture_handle = asset_server.load("sprites/bird.png");
 
     commands
-        .spawn(Camera2dBundle::default())
-        .spawn(CameraUiBundle::default());
+        .spawn()
+        .insert_bundle(OrthographicCameraBundle::new_2d());
 
     let boids = game_state.flock.get_boids();
     for i in 0..boids.len() {
@@ -59,8 +59,9 @@ fn setup(
             Transform::from_translation(Vec3::new(point.get_x(), point.get_y(), 0.0));
         transform.rotate(Quat::from_rotation_z(-boid.get_angle()));
         commands
-            .spawn((Bird { id: boid.id },))
-            .with_bundle(SpriteBundle {
+            .spawn()
+            .insert_bundle((Bird { id: boid.id },))
+            .insert_bundle(SpriteBundle {
                 sprite: Sprite {
                     size: Vec2::new(0.5, 0.5) * BOID_SIZE,
                     resize_mode: SpriteResizeMode::Manual,
