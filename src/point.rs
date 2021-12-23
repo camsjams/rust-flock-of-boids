@@ -27,11 +27,11 @@ impl Point {
         }
     }
 
-    pub fn get_x(self) -> f32 {
+    pub fn x(self) -> f32 {
         self.x
     }
 
-    pub fn get_y(self) -> f32 {
+    pub fn y(self) -> f32 {
         self.y
     }
 
