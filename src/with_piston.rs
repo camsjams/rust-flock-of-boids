@@ -1,7 +1,6 @@
 extern crate rand;
 
 mod boid;
-mod constants;
 mod point;
 mod vector;
 mod world;

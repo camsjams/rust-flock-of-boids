@@ -1,6 +1,6 @@
 use std::convert::TryInto;
 
-use crate::constants::PI_X_2;
+use std::f32::consts::TAU;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Vector {
@@ -28,7 +28,7 @@ impl Vector {
         let mut angle = self.dy.atan2(self.dx);
 
         if angle < 0.0 {
-            angle += PI_X_2;
+            angle += TAU;
         }
 
         angle
@@ -59,7 +59,7 @@ impl Vector {
 
     pub fn radial_distance(&self, other: Vector) -> f32 {
         let diff = (other.get_angle() - self.get_angle()).abs();
-        let diff2 = PI_X_2 - diff;
+        let diff2 = TAU - diff;
 
         return diff.min(diff2);
     }
