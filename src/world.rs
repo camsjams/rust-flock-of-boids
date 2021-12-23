@@ -41,7 +41,7 @@ impl World {
         World {
             width: size,
             height: size,
-            boids: boids,
+            boids,
         }
     }
 
@@ -49,7 +49,7 @@ impl World {
         for i in 0..self.boids.len() {
             let mut boid = self.boids[i];
             let neighbors = self.clone().get_visible_neighbors(&boid);
-            boid.step(seconds, neighbors);
+            boid.step(seconds, &neighbors);
             boid.bound(self.width, self.height);
             self.boids[i] = boid;
         }
@@ -62,7 +62,6 @@ impl World {
         };
         self.boids
             .iter()
-            .cloned()
             .filter(|b| {
                 if b.id == boid.id {
                     return false;
@@ -88,6 +87,7 @@ impl World {
 
                 true
             })
+            .copied()
             .collect::<Vec<Boid>>()
     }
 

@@ -51,8 +51,7 @@ fn setup(
         .spawn(CameraUiBundle::default());
 
     let boids = game_state.flock.get_boids();
-    for i in 0..boids.len() {
-        let boid = boids[i];
+    for boid in boids {
         let point = boid.get_point();
 
         let mut transform =
@@ -64,14 +63,13 @@ fn setup(
                 sprite: Sprite {
                     size: Vec2::new(0.5, 0.5) * BOID_SIZE,
                     resize_mode: SpriteResizeMode::Manual,
-                    ..Default::default()
                 },
                 material: materials.add(ColorMaterial {
                     texture: Some(texture_handle.clone()),
                     color: Color::BLACK,
                 }),
                 transform,
-                ..Default::default()
+                ..SpriteBundle::default()
             });
     }
 }

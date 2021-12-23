@@ -39,15 +39,15 @@ impl Boid {
     }
 
     pub fn get_point(self) -> Point {
-        self.point.clone()
+        self.point
     }
 
-    pub fn step(&mut self, seconds: f32, neighbors: Vec<Boid>) {
-        if neighbors.len() > 0 {
+    pub fn step(&mut self, seconds: f32, neighbors: &[Boid]) {
+        if !neighbors.is_empty() {
             let mut vectors: Vec<Vector> = Vec::new();
 
             let mut separation = Vector::mean(
-                neighbors
+                &neighbors
                     .iter()
                     .map(|b| self.point.vector_to(&b.point))
                     .collect::<Vec<Vector>>(),
@@ -56,11 +56,11 @@ impl Boid {
             vectors.push(separation);
 
             let average_location =
-                Point::mean(neighbors.iter().map(|b| b.point).collect::<Vec<Point>>());
+                Point::mean(&neighbors.iter().map(|b| b.point).collect::<Vec<Point>>());
             vectors.push(self.point.vector_to(&average_location));
 
             let average_heading = Vector::mean(
-                neighbors
+                &neighbors
                     .iter()
                     .map(|b| {
                         let mut v = Vector { dx: 1f32, dy: 0f32 };
@@ -73,7 +73,7 @@ impl Boid {
             );
             vectors.push(average_heading);
 
-            let final_vector = Vector::mean(vectors);
+            let final_vector = Vector::mean(&vectors);
             self.turn_to(final_vector.get_angle(), 0.02f32);
         }
 
@@ -88,7 +88,7 @@ impl Boid {
         let mut diff = heading - angle;
 
         if diff >= std::f32::consts::PI {
-            diff = diff - PI_X_2;
+            diff -= PI_X_2;
         }
 
         self.set_angle(angle + diff * percent);

@@ -9,12 +9,12 @@ pub struct Vector {
 }
 
 impl Vector {
-    pub fn mean(vectors: Vec<Vector>) -> Vector {
+    pub fn mean(vectors: &[Vector]) -> Vector {
         let mut sum_x = 0.0;
         let mut sum_y = 0.0;
-        for i in 0..vectors.len() {
-            sum_x += vectors[i].dx;
-            sum_y += vectors[i].dy;
+        for vector in vectors {
+            sum_x += vector.dx;
+            sum_y += vector.dy;
         }
 
         let total: u32 = vectors.len().try_into().unwrap();
@@ -47,7 +47,7 @@ impl Vector {
         let dx = self.dx;
         let dy = self.dy;
 
-        return (dx * dx + dy * dy).sqrt();
+        (dx * dx + dy * dy).sqrt()
     }
 
     pub fn set_length(&mut self, value: f32) {
@@ -61,7 +61,7 @@ impl Vector {
         let diff = (other.get_angle() - self.get_angle()).abs();
         let diff2 = PI_X_2 - diff;
 
-        return diff.min(diff2);
+        diff.min(diff2)
     }
 }
 
@@ -82,7 +82,7 @@ mod tests {
         const EXPECTED: Vector = Vector { dx: 3.0, dy: 30.0 };
 
         // act
-        let result: Vector = Vector::mean(input);
+        let result: Vector = Vector::mean(&input);
 
         // assert
         assert_eq!(result, EXPECTED);

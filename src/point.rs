@@ -12,12 +12,12 @@ impl Point {
         Point { x, y }
     }
 
-    pub fn mean(points: Vec<Point>) -> Point {
+    pub fn mean(points: &[Point]) -> Point {
         let mut sum_x = 0.0;
         let mut sum_y = 0.0;
-        for i in 0..points.len() {
-            sum_x += points[i].x;
-            sum_y += points[i].y;
+        for point in points {
+            sum_x += point.x;
+            sum_y += point.y;
         }
 
         let total: u32 = points.len().try_into().unwrap();
@@ -81,7 +81,7 @@ mod tests {
         const EXPECTED: Point = Point { x: 3.0, y: 30.0 };
 
         // act
-        let result: Point = Point::mean(input);
+        let result: Point = Point::mean(&input);
 
         // assert
         assert_eq!(result, EXPECTED);
