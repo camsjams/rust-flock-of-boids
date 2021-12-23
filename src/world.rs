@@ -1,4 +1,4 @@
-use crate::{boid::Boid, point::Point, vector::Vector};
+use crate::{boid::Boid, vector::Vector};
 use rand::Rng;
 
 #[derive(Clone)]
@@ -27,13 +27,13 @@ impl World {
         let mut rng = rand::thread_rng();
         for i in 0..total_boids {
             let v: f32 = i as f32 * step + 1f32;
-            let point = Point::new(
-                rng.gen_range(MIN_VELOCITY..v),
-                rng.gen_range(MIN_VELOCITY..v),
-            );
+            let point = Vector {
+                x: rng.gen_range(MIN_VELOCITY..v),
+                y: rng.gen_range(MIN_VELOCITY..v),
+            };
             let vector = Vector {
-                dx: rng.gen_range(MIN_VELOCITY..MAX_VELOCITY),
-                dy: rng.gen_range(MIN_VELOCITY..MAX_VELOCITY),
+                x: rng.gen_range(MIN_VELOCITY..MAX_VELOCITY),
+                y: rng.gen_range(MIN_VELOCITY..MAX_VELOCITY),
             };
             boids.push(Boid::new(point, vector, i));
         }
@@ -41,7 +41,7 @@ impl World {
         World {
             width: size,
             height: size,
-            boids: boids,
+            boids,
         }
     }
 
@@ -49,7 +49,7 @@ impl World {
         for i in 0..self.boids.len() {
             let mut boid = self.boids[i];
             let neighbors = self.clone().get_visible_neighbors(&boid);
-            boid.step(seconds, neighbors);
+            boid.step(seconds, &neighbors);
             boid.bound(self.width, self.height);
             self.boids[i] = boid;
         }
@@ -57,37 +57,37 @@ impl World {
 
     pub fn get_visible_neighbors(&self, boid: &Boid) -> Vec<Boid> {
         let grid = Grid {
-            x: (boid.point.get_x() / SIGHT).floor(),
-            y: (boid.point.get_y() / SIGHT).floor(),
+            x: (boid.point.x / SIGHT).floor(),
+            y: (boid.point.y / SIGHT).floor(),
         };
         self.boids
             .iter()
-            .cloned()
             .filter(|b| {
                 if b.id == boid.id {
                     return false;
                 }
 
                 let other_grid = Grid {
-                    x: (b.point.get_x() / SIGHT).floor(),
-                    y: (b.point.get_y() / SIGHT).floor(),
+                    x: (b.point.x / SIGHT).floor(),
+                    y: (b.point.y / SIGHT).floor(),
                 };
 
                 if (grid.x - other_grid.x).abs() + (grid.y - other_grid.y).abs() > GRID_GAP {
                     return false;
                 }
 
-                let vector: Vector = boid.point.vector_to(&b.point);
-                if vector.get_length() > SIGHT {
+                let velocity = b.point - boid.point;
+                if velocity.get_length() > SIGHT {
                     return false;
                 }
 
-                if vector.radial_distance(boid.vector) > FIELD_OF_VIEW {
+                if velocity.radial_distance(boid.velocity) > FIELD_OF_VIEW {
                     return false;
                 }
 
                 true
             })
+            .copied()
             .collect::<Vec<Boid>>()
     }
 

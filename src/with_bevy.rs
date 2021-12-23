@@ -2,7 +2,6 @@ extern crate rand;
 
 mod boid;
 mod constants;
-mod point;
 mod vector;
 mod world;
 
@@ -51,12 +50,10 @@ fn setup(
         .spawn(CameraUiBundle::default());
 
     let boids = game_state.flock.get_boids();
-    for i in 0..boids.len() {
-        let boid = boids[i];
+    for boid in boids {
         let point = boid.get_point();
 
-        let mut transform =
-            Transform::from_translation(Vec3::new(point.get_x(), point.get_y(), 0.0));
+        let mut transform = Transform::from_translation(Vec3::new(point.x, point.y, 0.0));
         transform.rotate(Quat::from_rotation_z(-boid.get_angle()));
         commands
             .spawn((Bird { id: boid.id },))
@@ -64,14 +61,13 @@ fn setup(
                 sprite: Sprite {
                     size: Vec2::new(0.5, 0.5) * BOID_SIZE,
                     resize_mode: SpriteResizeMode::Manual,
-                    ..Default::default()
                 },
                 material: materials.add(ColorMaterial {
                     texture: Some(texture_handle.clone()),
                     color: Color::BLACK,
                 }),
                 transform,
-                ..Default::default()
+                ..SpriteBundle::default()
             });
     }
 }
@@ -83,7 +79,7 @@ fn step_system(mut q: Query<(&Bird, &mut Transform)>, mut game_state: ResMut<Gam
     for (bird, mut transform) in q.iter_mut() {
         let boid = boids[bird.id as usize]; // <- could totally panic!
         let point = boid.get_point();
-        transform.translation = Vec3::new(point.get_x(), point.get_y(), 0.0);
+        transform.translation = Vec3::new(point.x, point.y, 0.0);
         transform.rotate(Quat::from_rotation_z(-boid.get_angle()));
     }
 }
