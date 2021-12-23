@@ -1,4 +1,5 @@
-use crate::{constants::PI_X_2, point::Point, vector::Vector};
+use crate::{point::Point, vector::Vector};
+use std::f32::consts::TAU;
 
 #[derive(Clone, Copy)]
 pub struct Boid {
@@ -83,12 +84,12 @@ impl Boid {
     pub fn turn_to(&mut self, mut heading: f32, percent: f32) {
         let angle = self.get_angle();
         if heading < angle {
-            heading += PI_X_2;
+            heading += TAU;
         }
         let mut diff = heading - angle;
 
         if diff >= std::f32::consts::PI {
-            diff = diff - PI_X_2;
+            diff = diff - TAU;
         }
 
         self.set_angle(angle + diff * percent);
